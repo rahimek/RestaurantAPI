@@ -29,6 +29,8 @@ namespace RestaurantAPI3.Models.Validators
                         context.AddFailure("Email", "That email is already in use.");
                     }
                 });
+            RuleFor(x => x.DateOfBirth)
+                .NotEmpty();
         }
     }
 }
