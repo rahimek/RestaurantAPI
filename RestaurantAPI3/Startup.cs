@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RestaurantAPI3.Entites;
 using RestaurantAPI3.Middleware;
+using RestaurantAPI3.Models;
+using RestaurantAPI3.Models.Validators;
 using RestaurantAPI3.Services;
 using System;
 using System.Collections.Generic;
@@ -40,6 +44,8 @@ namespace RestaurantAPI3
             services.AddScoped<IDishService, DishService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
