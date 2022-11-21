@@ -55,7 +55,10 @@ namespace RestaurantAPI3
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
                 };
             });
-
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("HasNationality", builder => builder.RequireClaim("Nationality", "Poland"));
+            });
             services.AddControllers();
             services.AddDbContext<RestaurantDBContext>();
             services.AddScoped<RestaurantSeeder>();
