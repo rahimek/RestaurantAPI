@@ -8,6 +8,7 @@ using RestaurantAPI3.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Claims;
 
 namespace RestaurantAPI3.Controllers
 {
@@ -28,7 +29,7 @@ namespace RestaurantAPI3.Controllers
         {
             _restaurantService.Delete(id);
 
-            return NotFound();
+            return NoContent();
         }
         [HttpPost]
         [Authorize(Roles = "Admin,Manager")]
@@ -39,7 +40,7 @@ namespace RestaurantAPI3.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "HasNationality")]
+        [Authorize(Policy = "AtLeast20")]
         public ActionResult<IEnumerable<RestaurantDto>> GetAll()
         {
             var restaurantsDtos = _restaurantService.GetAll();
